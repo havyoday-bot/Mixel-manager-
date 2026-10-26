@@ -12,6 +12,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Arrange project files
+        run: |
+          mkdir -p www assets
+          if [ -f index.html ]; then mv -f index.html www/index.html; fi
+          for f in icon-only.png icon-foreground.png icon-background.png splash.png splash-dark.png; do
+            if [ -f "$f" ]; then mv -f "$f" assets/; fi
+          done
+          ls -R www assets
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
